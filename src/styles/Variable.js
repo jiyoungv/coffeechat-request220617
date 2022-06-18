@@ -11,7 +11,7 @@ export const color = {
     brand100: '#EBEDFF',
     brand400: '#7687F5',
     brand500: '#5E67EB',
-    blue100: '#EEF3FB',    
+    blue100: '#EEF3FB',
     slate700: '#16263D',
     slate600: '#40577A',
     slate500: '#6F84A3',
@@ -27,3 +27,5 @@ export const color = {
     midnight200: 'rgba(42, 47, 61, 0.16)',
     midnight100: 'rgba(42, 47, 61, 0.08)',
 };
+
+export const maxWidth = '414px';

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { clearFix, hidden } from './Mixin';
-import { color } from './Variable';
+import { color, maxWidth } from './Variable';
 import icon_information from '../assets/images/icon_information.svg';
 
 const { midnight200, midnight300, midnight400, midnight500, brand100, brand500, midnight100, slate100 } = color;
@@ -14,7 +14,7 @@ export const Inners = styled.div`
 
 export const Layouts = styled.div`
     min-width: 320px;
-    max-width: 414px;
+    max-width: ${maxWidth};
     margin: 0 auto;
 `;
 
@@ -34,7 +34,7 @@ export const Dividers = styled.div`
 export const PageTitles = styled.div`
     padding: 16px 0 32px;
 
-    h1 {
+    > h1 {
         margin-bottom: 4px;
         font-size: 20px;
         font-weight: 700;
@@ -45,7 +45,7 @@ export const PageTitles = styled.div`
         }
     }
 
-    p {
+    > p {
         color: ${midnight500};
     }
 `;
@@ -53,29 +53,29 @@ export const PageTitles = styled.div`
 export const PageInfos = styled.div`
     padding: 24px 0 8px;
 
-    .info-with-image {
+    > .info-with-image {
         display: flex;
         margin-bottom: 16px;
 
-        figure {
+        > figure {
             width: 56px;
             flex: 0 0 56px;
             margin-right: 16px;
         }
 
-        h2 {
+        > h2 {
             font-size: 18px;
             font-weight: 700;
             letter-spacing: -0.03em;
         }
     }
 
-    .info-desc {
+    > .info-desc {
         padding: 16px;
         border: 1px solid ${midnight200};
         border-radius: 8px;
 
-        p {
+        > p {
             font-size: 12px;
         }
     }
@@ -84,42 +84,42 @@ export const PageInfos = styled.div`
 export const FieldTitles = styled.div`
     margin-bottom: ${props => props.mb || 16}px;
 
-    .title {
+    > .title {
         display: flex;
         justify-content: space-between;
         align-items: center;
     
-        p, small, button {
+        > p, > small, > button {
             &:last-child {
                 padding-left: 10px;
             }
         }
 
-        h6 {
+        > h6 {
             font-size: 16px;
             font-weight: 700;
         }
     
-        small {
+        > small {
             font-size: 12px;
             font-weight: 700;
             color: ${brand500};
         }
 
-        button {
+        > button {
             color: ${midnight500};
             font-size: 12px;
             text-decoration: underline;
         }
     }
 
-    .text {
-        p {
+    > .text {
+        > p {
             margin-top: 4px;
             color: ${midnight400};
         }
 
-        small {
+        > small {
             color: ${midnight500};
             font-size: 12px;
         }
@@ -143,7 +143,7 @@ export const Cautions = styled.div`
         background: url(${icon_information}) center/auto no-repeat;
     }
 
-    p {
+    > p {
        font-size: 12px; 
     }
 `;
@@ -174,11 +174,11 @@ export const FloatButtons = styled(Buttons)`
 `;
 
 export const InputChecks = styled.div`
-    input[type="checkbox"] {
+    > input[type="checkbox"] {
         ${hidden}
     }
 
-    label {
+    > label {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -192,8 +192,8 @@ export const InputChecks = styled.div`
         }
     }
 
-    .check-text {
-        p {
+    > .check-text {
+        > p {
             margin-bottom: 4px;
 
             &:last-child {
@@ -243,13 +243,13 @@ export const AmountLists = styled.ul`
     border-top: 2px solid ${midnight300};
     border-bottom: 1px solid ${midnight300};
 
-    li {
+    > li {
         display: flex;
         justify-content: space-between;
         padding-bottom: 8px;
         font-size: 16px;
         
-        p {
+        > p {
             &:last-child {
                 padding-left: 10px;
             }
