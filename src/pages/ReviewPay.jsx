@@ -1,4 +1,4 @@
-import { Inners, PageInfos, Divider } from '../styles/Common';
+import { Inners, PageInfos, Dividers } from '../styles/Common';
 import PageLayout from '../components/PageLayout';
 import Header from '../components/Header';
 import ReviewPayForm from '../components/ReviewPayForm';
@@ -22,7 +22,7 @@ function ReviewPay() {
                         <p>제안한 일정 중 파트너가 선택하면 확정 스케줄을 개별적으로 안내 드립니다.</p>
                     </div>
                 </PageInfos>
-                <Divider/>
+                <Dividers/>
                 <ReviewPayForm />
             </Inners>
         </PageLayout>

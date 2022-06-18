@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import { FieldTitles, Divider, Cautions, FloatButtons, InputTexts, InputTextAreas } from '../../styles/Common';
+import { FieldTitles, Dividers, Cautions, FloatButtons, InputTexts, InputTextAreas } from '../../styles/Common';
 import ReviewRequestForms from './Style';
 import CheckSchedule from '../CheckSchedule';
 import dateData from '../../data/dateData';
@@ -65,7 +65,7 @@ function ReviewRequestForm() {
                     <button type='button' onClick={onClickScheduleMore}>다른 일정 더보기</button>
                 </div>
             </article>
-            <Divider/>
+            <Dividers/>
             <article className='form-link'>
                 <FieldTitles>
                     <div className='title'>
@@ -83,7 +83,7 @@ function ReviewRequestForm() {
                     <p>PDF 형태의 포트폴리오 제출을 추가로 원하는 경우, 커피챗 카카오톡 고객센터로 문의 주시길 바랍니다.</p>
                 </Cautions>
             </article>
-            <Divider/>
+            <Dividers/>
             <article className='form-message'>
                 <FieldTitles>
                     <div className='title'>

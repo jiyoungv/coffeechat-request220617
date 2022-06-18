@@ -18,13 +18,13 @@ export const Layouts = styled.div`
     margin: 0 auto;
 `;
 
-export const Divider = styled.div`
+export const Dividers = styled.div`
     width: 100%;
     height: 1px;
     margin: 24px 0;
     background: ${midnight100};
 
-    ${props => props.type === 'full' && `
+    ${props => props.type2 && `
         width: calc(100% + 48px);
         height: 8px;
         margin-left: -24px;
@@ -89,6 +89,12 @@ export const FieldTitles = styled.div`
         justify-content: space-between;
         align-items: center;
     
+        p, small, button {
+            &:last-child {
+                padding-left: 10px;
+            }
+        }
+
         h6 {
             font-size: 16px;
             font-weight: 700;
@@ -98,6 +104,12 @@ export const FieldTitles = styled.div`
             font-size: 12px;
             font-weight: 700;
             color: ${brand500};
+        }
+
+        button {
+            color: ${midnight500};
+            font-size: 12px;
+            text-decoration: underline;
         }
     }
 
@@ -155,7 +167,7 @@ export const Buttons = styled.button`
 
 export const FloatButtons = styled(Buttons)`
     position: sticky;
-    bottom: 40px;
+    bottom: 24px;
     left: 0;
     right: 0;
     margin: 24px 0;
@@ -223,5 +235,35 @@ export const InputTextAreas = styled.textarea`
 
     &:focus {
         outline-color: ${brand500};
+    }
+`;
+
+export const AmountLists = styled.ul`
+    padding-top: 8px;
+    border-top: 2px solid ${midnight300};
+    border-bottom: 1px solid ${midnight300};
+
+    li {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 8px;
+        font-size: 16px;
+        
+        p {
+            &:last-child {
+                padding-left: 10px;
+            }
+        }
+
+        &.list-coupon {
+            color: ${brand500};
+            font-weight: 700;
+        }
+
+        &.list-total {
+            padding-top: 8px;
+            border-top: 1px solid ${midnight300};
+            font-weight: 700;
+        }
     }
 `;

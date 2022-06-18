@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { color } from '../../styles/Variable';
 
-const { midnight600, bg } = color;
+const { midnight500, midnight600, bg } = color;
 
 const ReviewPayForms = styled.form`
     .form-schedule {
@@ -35,6 +35,45 @@ const ReviewPayForms = styled.form`
 
         p {
             color: ${midnight600};
+        }
+    }
+
+    .form-caution {
+        padding: 8px 0 32px;
+    }
+
+    .form-caution-list {
+        li {
+            position: relative;
+            margin-bottom: 8px;
+            padding-left: 13px;
+            font-size: 12px;
+            color: ${midnight500};
+
+            &::before {
+                content: '•';
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .form-policy {
+        padding-bottom: 8px;
+    }
+
+    .form-agree {
+        padding: 8px 0;
+
+        p {
+            color: ${midnight500};
+            font-size: 12px;
         }
     }
 `;
