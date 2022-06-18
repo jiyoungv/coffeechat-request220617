@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { FieldTitles, Dividers, AmountLists, FloatButtons } from '../../styles/Common';
+import { FieldTitles, Dividers, AmountLists, Buttons } from '../../styles/Common';
 import ReviewPayForms from './Style';
 import BottomSheet from '../BottomSheet/index.jsx';
 
@@ -23,7 +23,8 @@ function ReviewPayForm() {
     }, []);
 
     // 확인 및 결제하기
-    const onSubmitPay = useCallback(() => {
+    const onSubmitPay = useCallback((e) => {
+        e.preventDefault();
         alert('확인 및 결제');
     }, []);
 
@@ -55,7 +56,7 @@ function ReviewPayForm() {
                 <div className='form-message-view'>
                     <p>안녕하세요, 현재 디자인 에이전시에서 bx로 근무하고 있습니다. 네이버 프로덕트 디자인 직군으로 커리어 전환과 함께 이직을 고민하고 있습니다. 포트폴리오 제작과 방향성이 막막하여 요청드립니다.</p>
                 </div>
-            </article>            
+            </article>
             <Dividers type2 />
             <article className='form-coupon'>
                 <FieldTitles>
@@ -138,7 +139,9 @@ function ReviewPayForm() {
                     유의 사항, 환불정책 및 노쇼정책에 동의합니다.
                 </p>
             </article>
-            <FloatButtons type='submit' disabled={false}>확인 및 결제하기</FloatButtons>
+            <div className='form-submit'>
+                <Buttons type='submit'>확인 및 결제하기</Buttons>
+            </div>
         </ReviewPayForms>
     );
 }

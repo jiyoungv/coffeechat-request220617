@@ -1,14 +1,18 @@
-import GlobalStyle from '../styles/GlobalStyle';
-import { Layouts } from '../styles/Common';
+import { PageTitles } from '../styles/Common';
+import PageLayout from '../components/PageLayout';
+import ReviewConfirmHeader from '../components/ReviewConfirmHeader';
+import ReviewConfirmForm from '../components/ReviewConfirmForm';
 
 function ReviewConfirm() {
     return (
-        <>
-            <GlobalStyle />
-            <Layouts>
-                <div>포트폴리오 리뷰 신청 수락하기 페이지</div>
-            </Layouts>
-        </>
+        <PageLayout>
+            <ReviewConfirmHeader />
+            <PageTitles>
+                <h1>포트폴리오 리뷰 신청이 도착했어요!</h1>
+                <p>포트폴리오 리뷰는 40분 동안 1:1 대화로 진행되며, 4만 원의 리워드가 지급됩니다.</p>
+            </PageTitles>
+            <ReviewConfirmForm />
+        </PageLayout>
     );
 }
 

@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types';
 import GlobalStyle from '../../styles/GlobalStyle';
-import { Layouts } from '../../styles/Common';
+import { Layouts, Inners } from '../../styles/Common';
 
 function PageLayout({ children }) {
     return (
         <>
             <GlobalStyle />
             <Layouts>
-                {children}
+                <Inners>
+                    {children}
+                </Inners>
             </Layouts>
         </>
     )

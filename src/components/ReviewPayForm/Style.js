@@ -10,6 +10,7 @@ const ReviewPayForms = styled.form`
 
     .form-schedule-view {
         padding: 16px 24px;
+        border-radius: 8px;
         background: ${bg};
 
         ul {
@@ -30,6 +31,7 @@ const ReviewPayForms = styled.form`
 
     .form-message-view {
         padding: 16px 24px;
+        border-radius: 8px;
         background: ${bg};
         word-break: break-all;
 
@@ -69,12 +71,16 @@ const ReviewPayForms = styled.form`
     }
 
     .form-agree {
-        padding: 8px 0;
+        padding: 8px 0 24px;
 
         p {
             color: ${midnight500};
             font-size: 12px;
         }
+    }
+
+    .form-submit {
+        padding: 8px 0 42px;
     }
 `;
 

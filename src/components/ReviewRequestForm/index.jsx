@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { FieldTitles, Dividers, Cautions, FloatButtons, InputTexts, InputTextAreas } from '../../styles/Common';
 import ReviewRequestForms from './Style';
 import CheckSchedule from '../CheckSchedule';
+import ReviewRequestModal from '../ReviewRequestModal';
 import dateData from '../../data/dateData';
 
 function ReviewRequestForm() {
@@ -19,6 +20,12 @@ function ReviewRequestForm() {
         setLink(e.target.value);
     }, []);
 
+    // 포트폴리오 링크 오류 모달
+    const [openModal, setOpenModal] = useState(false);
+    const onCloseModal = useCallback(() => {
+        setOpenModal(false);
+    }, []);
+
     // 추가 궁금한 사항
     const [message, setMessage] = useState('');
     const onChangeMessage = useCallback((e) => {
@@ -28,6 +35,7 @@ function ReviewRequestForm() {
     // 신청하기
     const onSubmitRequest = useCallback((e) => {
         e.preventDefault();
+        setOpenModal(true);
         alert(`
             일정: none
             포트폴리오 링크: ${link}
@@ -96,6 +104,7 @@ function ReviewRequestForm() {
                 </div>
             </article>
             <FloatButtons type='submit' disabled={!canSubmit}>신청하기</FloatButtons>
+            {openModal && <ReviewRequestModal title={'포트폴리오 링크 오류'} text={'유효하지 않은 링크입니다. 다시 한번 확인해 주세요.'} onClose={onCloseModal} />}
         </ReviewRequestForms>
     );
 }
