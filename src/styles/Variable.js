@@ -7,7 +7,7 @@ export const fontFamily = {
 };
 
 export const color = {
-    bg: '#FAF8FF',
+    bg: '#FAFAFA',
     brand100: '#EBEDFF',
     brand400: '#7687F5',
     brand500: '#5E67EB',

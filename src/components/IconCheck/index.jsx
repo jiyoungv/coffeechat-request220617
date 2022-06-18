@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { color } from '../../styles/Variable';
 
-function InputCheckIcon({ checked }) {
+function IconCheck({ checked }) {
     const { midnight200, brand500 } = color;
     const uncheckedColor = midnight200;
     const checkedColor = brand500;
@@ -12,7 +12,9 @@ function InputCheckIcon({ checked }) {
     useEffect(() => {
         if (checked) {
             setStrokeColor(checkedColor);
-        } else {
+        }
+
+        return () => {
             setStrokeColor(uncheckedColor);
         }
     }, [checked, setStrokeColor, checkedColor, uncheckedColor]);
@@ -24,8 +26,8 @@ function InputCheckIcon({ checked }) {
     )
 }
 
-InputCheckIcon.propTypes = {
+IconCheck.propTypes = {
     checked: PropTypes.bool,
 };
 
-export default InputCheckIcon;
+export default IconCheck;

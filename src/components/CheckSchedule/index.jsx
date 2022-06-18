@@ -1,9 +1,9 @@
 import { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { InputChecks } from './Style';
-import InputCheckIcon from '../InputCheckIcon';
+import { InputChecks } from '../../styles/Common';
+import IconCheck from '../IconCheck';
 
-function InputCheck({ name, id, content }) {
+function CheckSchedule({ name, id, content }) {
     const [check, setCheck] = useState(false);
     const onChangeCheck = useCallback((e) => {
         setCheck(e.target.checked);
@@ -24,17 +24,17 @@ function InputCheck({ name, id, content }) {
                     <p><b>{content.time}</b></p>
                 </div>
                 <figure className='check-icon'>
-                    <InputCheckIcon checked={check} />
+                    <IconCheck checked={check} />
                 </figure>
             </label>
         </InputChecks>
     )
 }
 
-InputCheck.propTypes = {
+CheckSchedule.propTypes = {
     name: PropTypes.string,
     id: PropTypes.string,
     content: PropTypes.object,
 };
 
-export default InputCheck;
+export default CheckSchedule;

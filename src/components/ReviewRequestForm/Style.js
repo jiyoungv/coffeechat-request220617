@@ -4,16 +4,14 @@ import icon_arrow_down from '../../assets/images/icon_arrow_down.svg';
 
 const { brand500 } = color;
 
-export const ReviewRequestForms = styled.form`
-    .form-date-input {
-        margin-top: 15px;
-
+const ReviewRequestForms = styled.form`
+    .form-schedule-input {
         > div {
             margin-bottom: 16px;
         }
     }
 
-    .form-date-more {
+    .form-schedule-more {
         padding: 16px 0;
         text-align: center;
 
@@ -39,7 +37,7 @@ export const ReviewRequestForms = styled.form`
     }
 
     .form-link-input {
-        margin: 16px 0;
+        margin-bottom: 16px;
     }
 
     .form-message {
@@ -50,3 +48,5 @@ export const ReviewRequestForms = styled.form`
         margin-top: 15px;
     }
 `;
+
+export default ReviewRequestForms;

@@ -1,14 +1,12 @@
 import PropTypes from 'prop-types';
 import GlobalStyle from '../../styles/GlobalStyle';
 import { Layouts } from '../../styles/Common';
-import BackHeader from '../BackHeader';
 
-function PageLayout ({ children }) {
+function PageLayout({ children }) {
     return (
         <>
             <GlobalStyle />
             <Layouts>
-                <BackHeader />
                 {children}
             </Layouts>
         </>
