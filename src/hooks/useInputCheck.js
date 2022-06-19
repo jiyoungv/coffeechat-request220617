@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 
-const useInputCheck = (defaultState = new Set()) => {
-    const [state, setState] = useState(defaultState);
+const useInputCheck = (initialState = new Set()) => {
+    const [state, setState] = useState(initialState);
     const handler = useCallback((checked, change) => {
         let newState = new Set(state);
     
@@ -15,6 +15,7 @@ const useInputCheck = (defaultState = new Set()) => {
     }, [state]);
 
     return [state, handler, setState];
+    // state - new Set([id1, id2, ...])
 }
 
 export default useInputCheck;

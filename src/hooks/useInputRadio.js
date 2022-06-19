@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 
-const useInputRadio = (defaultState = '', selfUncheckable = false) => {
-    const [state, setState] = useState(defaultState);
+const useInputRadio = (initialState = '', selfUncheckable = false) => {
+    const [state, setState] = useState(initialState);
     const handler = useCallback((clickId) => {
         if (selfUncheckable && state === clickId) {
             setState('');

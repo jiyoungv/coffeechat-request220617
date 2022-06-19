@@ -1,7 +1,7 @@
 import { useCallback, useState, useEffect } from 'react';
 import { FieldTitles, Buttons } from '../../styles/Common';
 import ReviewConfirmForms from './Style';
-import RadioSchedule from '../RadioSchedule';
+import ScheduleList from '../ScheduleList';
 import partnerData from '../../tempData/partnerData';
 import scheduleData from '../../tempData/scheduleData';
 import useInputRadio from '../../hooks/useInputRadio';
@@ -9,14 +9,6 @@ import useInputRadio from '../../hooks/useInputRadio';
 function ReviewConfirmForm() {
     // 일정 1개 선택
     const [checkSchedule, onClickSchedule] = useInputRadio('', true);
-
-    // 다른 일정 더보기
-    const [scheduleLength, setScheduleLength] = useState(4);
-    const [canScheduleMore, setCanScheduleMore] = useState(true);
-    const onClickScheduleMore = useCallback(() => {
-        setScheduleLength(scheduleData.length);
-        setCanScheduleMore(false);
-    }, []);
 
     // 신청하기 버튼 활성화 여부
     const [canSubmit, setCanSubmit] = useState(false);
@@ -32,7 +24,7 @@ function ReviewConfirmForm() {
     // 신청하기
     const onSubmitConfirm = useCallback((e) => {
         e.preventDefault();
-        alert(`선택한 일정: ${checkSchedule}\n`);
+        console.log(`선택한 일정: ${checkSchedule}`);
     }, [checkSchedule]);
 
     return (
@@ -78,27 +70,7 @@ function ReviewConfirmForm() {
                         <small>선호하는 일정 1개 선택</small>
                     </div>
                 </FieldTitles>
-                <div className='form-schedule-input'>
-                    {scheduleData.map((v, i) => {
-                        if (i > scheduleLength - 1) return false;
-
-                        return (
-                            <RadioSchedule 
-                                key={v.id} 
-                                name={'schedule'} 
-                                id={v.id}
-                                checkId={checkSchedule}
-                                onClick={onClickSchedule}
-                                data={v.schedule}
-                            />
-                        )
-                    })}
-                </div>
-                {canScheduleMore &&
-                    <div className='form-schedule-more'> 
-                        <button type='button' onClick={onClickScheduleMore}>다른 일정 더보기</button>
-                    </div>
-                }
+                <ScheduleList name={'schedule'} handler={onClickSchedule} data={scheduleData} multiple={false} checkId={checkSchedule} />
             </article>
             <div className='form-submit'>
                 <Buttons type='submit' disabled={!canSubmit}>일정 확정하기</Buttons>

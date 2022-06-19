@@ -5,7 +5,7 @@ import icon_information from '../assets/images/icon_information.svg';
 import icon_arrow_left from '../assets/images/icon_arrow_left.svg';
 import icon_close from '../assets/images/icon_close.svg';
 
-const { midnight200, midnight300, midnight400, midnight500, brand500, midnight100, slate100, blue100 } = color;
+const { midnight200, midnight300, midnight400, midnight500, brand500, midnight100, slate100 } = color;
 
 export const Inners = styled.div`
     position: relative;
@@ -236,12 +236,13 @@ export const InputTexts = styled.input`
     }
 
     &:focus {
-        outline-color: ${brand500};
+        outline: 1px solid ${brand500};
     }
 `;
 
 export const InputTextAreas = styled.textarea`
     width: 100%;
+    height: ${props => props.autoHeight ? props.autoHeight + 'px' : 'auto'};
     min-height: 162px;
     padding: 16px 20px;
     border: 0;
@@ -249,13 +250,18 @@ export const InputTextAreas = styled.textarea`
     background: ${slate100};
     word-break: break-all;
     resize: none;
+    transition: height 0.1s;
+    
+    &::-webkit-scrollbar {
+        display: none;
+    }
 
     &::placeholder {
         color: ${midnight400};
     }
 
     &:focus {
-        outline-color: ${brand500};
+        outline: 1px solid ${brand500};
     }
 `;
 
@@ -300,70 +306,6 @@ export const AmountLists = styled.ul`
             padding-top: 8px;
             border-top: 1px solid ${midnight300};
             font-weight: 700;
-        }
-    }
-`;
-
-export const Modals = styled.article`
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
-    width: 315px;
-    padding: 24px;
-    padding-top: 32px;
-    border-radius: 16px;
-    background: white;
-    box-shadow: 0px 2px 32px rgba(0, 0, 0, 0.24);
-    
-    > .title {
-        margin-bottom: 8px;
-        text-align: center;
-
-        > h3 {
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            word-break: break-all;
-        }
-    }
-
-    > .text {
-        margin-bottom: 32px;
-        text-align: center;
-
-        > p {
-            color: ${midnight500};
-            font-size: 16px;
-        }
-    }
-
-    > .button {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        text-align: center;
-
-        > a, > button {
-            width: 47%;
-            flex: 0 0 47%;
-            padding: 15px;
-            border-radius: 8px;
-            background: ${blue100};
-            font-size: 16px;
-            font-weight: 700;
-
-            &.button-brand {
-                background: linear-gradient(135deg, #7E6CF5 0%, #6CA3F5 100%);
-                box-shadow: 0px 2px 16px rgba(108, 163, 245, 0.48);
-                color: white;
-            }
-
-            &.button-full {
-                width: 100%;
-                flex-basis: 100%;
-            }
         }
     }
 `;

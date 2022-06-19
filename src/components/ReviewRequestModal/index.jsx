@@ -1,19 +1,11 @@
 import PropTypes from 'prop-types';
-import { Modals } from '../../styles/Common';
+import Modal from '../Modal';
 
 function ReviewRequestModal({ title, text, onClose }) {
     return (
-        <Modals>
-            <div className='title'>
-                <h3>{title}</h3>
-            </div>
-            <div className='text'>
-                <p>{text}</p>
-            </div>
-            <div className='button'>
-                <button type='button' onClick={onClose} className='button-brand button-full'>돌아가기</button>
-            </div>
-        </Modals>
+        <Modal title={title} text={text}>
+            <button type='button' onClick={onClose} className='button-full'>돌아가기</button>
+        </Modal>
     );
 }
 

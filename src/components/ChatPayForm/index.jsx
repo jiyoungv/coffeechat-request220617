@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
-import { FieldTitles, Dividers, AmountLists, Buttons } from '../../styles/Common';
-import ReviewPayForms from './Style';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { FieldTitles, Dividers, AmountLists, Buttons, InputTextAreas } from '../../styles/Common';
+import ChatPayForms from './Style';
 import BottomSheet from '../BottomSheet';
 import RadioCoupon from '../RadioCoupon';
 import InputRadio from '../InputRadio';
@@ -9,8 +9,54 @@ import couponData from '../../tempData/couponData';
 import payMethodData from '../../tempData/payMethodData';
 import partnerData from '../../tempData/partnerData';
 import { priceToString } from '../../utils/func';
+// import useInputText from '../../hooks/useInputText';
 
-function ReviewPayForm() {
+function ChatPayForm() {
+    // 사전 질문
+    const questionRef = useRef();
+    const [question, setQuestion] = useState(partnerData.question);
+    const [questionHeight, setQuestionHeight] = useState();
+    const onChangeQuestion = useCallback((e) => {
+        setQuestion(e.target.value);
+        setQuestionHeight();
+        setQuestionHeight(questionRef.current.scrollHeight);
+    }, []);
+
+    // 사전 질문 활성화
+    const [disabledQuestion, setDisabledQuestion] = useState(true);
+    const onClickQuestion = useCallback(() => {
+        setDisabledQuestion(false); 
+    }, []);
+    useEffect(() => {
+        if (!disabledQuestion) {
+            questionRef.current.focus();
+        }
+    }, [disabledQuestion]);
+
+    // // 사전 질문 높이 자동 맞춤
+    
+    // useEffect(() => {
+    //     if (question.length) {console.log('111')
+    //         setQuestionHeight(questionRef.current.scrollHeight);
+    //     }
+    // }, [question]);
+
+    // 수정한 사전 질문 저장
+    const [saveQuestion, setSaveQuestion] = useState(partnerData.question);
+
+    // 사전 질문 수정 취소
+    const onCancleQuestion = useCallback(() => {
+        // setQuestionHeight();
+        setQuestion(saveQuestion);
+        setDisabledQuestion(true);
+    }, [saveQuestion, setQuestion]);
+
+    // 사전 질문 수정 완료
+    const onCompleteQuestion = useCallback(() => {
+        setDisabledQuestion(true);
+        setSaveQuestion(question);
+    }, [question]);
+
     // 쿠폰
     const [checkCoupon, onClickCoupon] = useInputRadio('', true);
 
@@ -74,14 +120,27 @@ function ReviewPayForm() {
     }, [checkCoupon, checkMethod, totalAmount]);
 
     return (
-        <ReviewPayForms onSubmit={onSubmitPay}>
+        <ChatPayForms onSubmit={onSubmitPay}>
+            <article className='form-partner'>
+                <FieldTitles mb={8}>
+                    <div className='title'>
+                        <h6>파트너 정보</h6>
+                    </div>
+                </FieldTitles>
+                <div className='form-partner-view'>
+                    <p>airbnb 에어비앤비 코리아 Trust &amp; Safety, 루루 파트너 입니다. </p>
+                </div>
+            </article>
             <article className='form-schedule'>
                 <FieldTitles mb={8}>
                     <div className='title'>
                         <h6>선택 일정</h6>
                     </div>
                     <div className='text'>
-                        <small>제안한 시간 중 파트너가 확정하여 알림 드릴 예정입니다.</small>
+                        <small>
+                            선택 일정은 확정이 아닙니다. <br/>
+                            파트너가 가능한 시간과 매칭하여 알림 드릴 예정입니다.                            
+                        </small>
                     </div>
                 </FieldTitles>
                 <div className='form-schedule-view'>
@@ -90,14 +149,21 @@ function ReviewPayForm() {
                     </ul>
                 </div>
             </article>
-            <article className='form-message'>
-                <FieldTitles mb={8}>
+            <article className='form-question'>
+                <FieldTitles mb={8} className='field-title'>
                     <div className='title'>
-                        <h6>추가 궁금한 사항</h6>
+                        <h6>내가 작성한 사전 질문</h6>
+                        {disabledQuestion && <button type='button' onClick={onClickQuestion}><b>수정하기</b></button>}
                     </div>
                 </FieldTitles>
-                <div className='form-message-view'>
-                    <p>{partnerData.message}</p>
+                <div className='form-question-input'>
+                    <InputTextAreas value={question} ref={questionRef} autoHeight={questionHeight} onChange={onChangeQuestion} rows='3' maxLength='500' disabled={disabledQuestion}></InputTextAreas>
+                    {!disabledQuestion &&
+                        <div className='button'>
+                            <button type='button' onClick={onCancleQuestion}>취소</button>
+                            <button type='button' onClick={onCompleteQuestion}>완료</button>
+                        </div>
+                    }
                 </div>
             </article>
             <Dividers type2 />
@@ -196,8 +262,8 @@ function ReviewPayForm() {
             <div className='form-submit'>
                 <Buttons type='submit'>확인 및 결제하기</Buttons>
             </div>
-        </ReviewPayForms>
+        </ChatPayForms>
     );
 }
 
-export default ReviewPayForm;
+export default ChatPayForm;

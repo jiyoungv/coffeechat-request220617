@@ -1,23 +1,15 @@
 import { useEffect, useState, useCallback } from 'react';
 import { FieldTitles, Dividers, Cautions, FloatButtons, InputTexts, InputTextAreas } from '../../styles/Common';
 import ReviewRequestForms from './Style';
-import CheckSchedule from '../CheckSchedule';
 import ReviewRequestModal from '../ReviewRequestModal';
+import ScheduleList from '../ScheduleList';
 import scheduleData from '../../tempData/scheduleData';
 import useInputText from '../../hooks/useInputText';
 import useInputCheck from '../../hooks/useInputCheck';
 
 function ReviewRequestForm() {
     // 일정 여러개 선택
-    const [checkSchedule, onChangeCheckSchedule] = useInputCheck();
-
-    // 다른 일정 더보기
-    const [scheduleLength, setScheduleLength] = useState(4);
-    const [canScheduleMore, setCanScheduleMore] = useState(true);
-    const onClickScheduleMore = useCallback(() => {
-        setScheduleLength(scheduleData.length);
-        setCanScheduleMore(false);
-    }, []);
+    const [checkSchedule, onChangeSchedule] = useInputCheck();
 
     // 포트폴리오 링크
     const [link, onChangeLink] = useInputText('');
@@ -59,7 +51,7 @@ function ReviewRequestForm() {
             scheduleId += `${x},`;
         }
 
-        alert(`체크한 일정 id: ${scheduleId}\n포트폴리오 링크: ${link}\n추가 궁금한 사항: ${message}`);
+        console.log(`체크한 일정 id: ${scheduleId}\n포트폴리오 링크: ${link}\n추가 궁금한 사항: ${message}`);
     }, [checkSchedule, link, message]);
 
     return (
@@ -71,26 +63,7 @@ function ReviewRequestForm() {
                         <small>선호하는 일정 모두 선택 가능</small>
                     </div>
                 </FieldTitles>
-                <div className='form-schedule-input'>
-                    {scheduleData.map((v, i) => {
-                        if (i > scheduleLength - 1) return false;
-
-                        return (
-                            <CheckSchedule 
-                                key={v.id} 
-                                name={'schedule'} 
-                                id={v.id}
-                                onChange={onChangeCheckSchedule}
-                                data={v.schedule}
-                            />
-                        )
-                    })}
-                </div>
-                {canScheduleMore &&
-                    <div className='form-schedule-more'> 
-                        <button type='button' onClick={onClickScheduleMore}>다른 일정 더보기</button>
-                    </div>
-                }
+                <ScheduleList name={'schedule'} handler={onChangeSchedule} data={scheduleData} />
             </article>
             <Dividers/>
             <article className='form-link'>

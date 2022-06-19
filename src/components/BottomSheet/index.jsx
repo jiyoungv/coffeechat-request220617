@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import BottomSheets from './Style';
 
-function BottomSheet({ close = true, onClose, title, text }) {
+function BottomSheet({ close, onClose, title, text }) {
     return (
         <BottomSheets className={close ? 'close' : 'open' }>
             <div className='title'>
@@ -18,6 +18,7 @@ function BottomSheet({ close = true, onClose, title, text }) {
 }
 
 BottomSheet.propTypes = {
+    close: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,

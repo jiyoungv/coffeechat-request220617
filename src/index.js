@@ -7,6 +7,7 @@ import App from './App';
 import ReviewRequest from './pages/ReviewRequest';
 import ReviewPay from './pages/ReviewPay';
 import ReviewConfirm from './pages/ReviewConfirm';
+import ChatPay from './pages/ChatPay';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,6 +17,7 @@ root.render(
 			<Route path="/review/request" element={<ReviewRequest />} />
 			<Route path="/review/pay" element={<ReviewPay />} />
 			<Route path="/review/confirm" element={<ReviewConfirm />} />
+			<Route path="/chat/pay" element={<ChatPay />} />
 		</Routes>
 	</BrowserRouter>
 );
