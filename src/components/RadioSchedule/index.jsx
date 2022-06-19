@@ -1,25 +1,26 @@
 import PropTypes from 'prop-types';
 import { LabelSchedules } from '../../styles/Common';
-import InputCheck from '../InputCheck';
+import InputRadio from '../InputRadio';
 
-function CheckSchedule({ name, id, onChange, data }) {
+function RadioSchedule({ name, id, checkId, onClick, data }) {
     return (
         <div>
-            <InputCheck name={name} id={id} onChange={onChange}>
+            <InputRadio name={name} id={id} checkId={checkId} onClick={onClick}>
                 <LabelSchedules>
                     <p className='label-schedule-date'>{data.date}</p>
                     <p>{data.time}</p>
                 </LabelSchedules>
-            </InputCheck>
+            </InputRadio>
         </div>
     );
 }
 
-CheckSchedule.propTypes = {
+RadioSchedule.propTypes = {
     name: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
+    checkId: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired,
     data: PropTypes.object.isRequired,
 };
 
-export default CheckSchedule;
+export default RadioSchedule;

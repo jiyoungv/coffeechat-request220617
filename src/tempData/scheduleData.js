@@ -1,11 +1,11 @@
 const data = [];
-const length = 4;
+const length = 15;
 
-for (let i = 1; i < length + 1; i++) {
+for (let i = 0; i < length; i++) {
     data.push({
         id: `schedule${i}`,
         schedule: {
-            date: `6/${i} (월)`,
+            date: `6/${i + 1} (월)`,
             time: `8:00 PM ~ 9:00 PM`,
         },
     });

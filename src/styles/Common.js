@@ -39,13 +39,15 @@ export const Headers = styled.section`
     left: 0;
     right: 0;
     z-index: 10;
+    width: calc(100% + 48px);
     height: 48px;
+    margin-left: -24px;
     background: white;
 
     > .left-button {
         position: absolute;
         top: 0;
-        left: -12px;
+        left: 12px;
         width: 48px;
         height: 48px;
         background: center/auto no-repeat;
@@ -126,7 +128,7 @@ export const PageInfos = styled.div`
 `;
 
 export const FieldTitles = styled.div`
-    margin-bottom: ${props => props.mb || 16}px;
+    margin-bottom: ${props => props.mb === undefined ? 16 : props.mb}px;
 
     > .title {
         display: flex;
@@ -142,6 +144,10 @@ export const FieldTitles = styled.div`
         > h6 {
             font-size: 16px;
             font-weight: 700;
+
+            &:nth-child(2) {
+                font-weight: 400;
+            }
         }
     
         > small {
@@ -251,6 +257,21 @@ export const InputTextAreas = styled.textarea`
     &:focus {
         outline-color: ${brand500};
     }
+`;
+
+export const LabelSchedules = styled.div`
+    > p {
+        margin-bottom: 4px;
+        font-size: 14px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    > .label-schedule-date {
+        font-weight: 400;
+    }    
 `;
 
 export const AmountLists = styled.ul`

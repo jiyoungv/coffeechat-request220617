@@ -3,27 +3,27 @@ import PropTypes from 'prop-types';
 import IconCheck from '../IconCheck';
 import InputChecks from './Style';
 
-function InputCheck({ name, id, label, children, onChange }) {
-    const [checked, setChecked] = useState(false);
+function InputCheck({ name, id, label, checked, children, onChange }) {
+    const [checkState, setCheckState] = useState(checked ? checked : false);
     const onChangeCheck = useCallback((e) => {
-        setChecked(e.target.checked);
+        setCheckState(e.target.checked);
         onChange && onChange(e.target.checked, id);
     }, [id, onChange]);
 
     return (
         <InputChecks>
             <input 
-                type='checkbox' 
+                type='checkbox'
                 name={name} 
                 id={id} 
-                checked={checked} 
+                checked={checkState} 
                 onChange={onChangeCheck} 
             />
             <label htmlFor={id}>
                 {label && <p>{label}</p>}
                 {children}
                 <figure className='check-icon'>
-                    <IconCheck checked={checked} />
+                    <IconCheck checked={checkState} />
                 </figure>
             </label>            
         </InputChecks>
@@ -34,6 +34,7 @@ InputCheck.propTypes = {
     name: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     label: PropTypes.string,
+    checked: PropTypes.bool,
     children: PropTypes.node,
     onChange: PropTypes.func,
 };

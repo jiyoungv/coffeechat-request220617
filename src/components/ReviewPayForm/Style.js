@@ -40,6 +40,26 @@ const ReviewPayForms = styled.form`
         }
     }
 
+    .form-coupon {
+        padding: 8px 0;
+    }
+
+    .form-coupon-input {
+        > div {
+            padding-bottom: 8px;
+
+            &:last-child {
+                padding-bottom: 0;
+            }
+        }
+    }
+
+    .form-method-input {
+        > div {
+            padding-bottom: 8px;
+        }
+    }
+
     .form-caution {
         padding: 8px 0 32px;
     }

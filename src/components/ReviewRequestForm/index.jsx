@@ -2,62 +2,65 @@ import { useEffect, useState, useCallback } from 'react';
 import { FieldTitles, Dividers, Cautions, FloatButtons, InputTexts, InputTextAreas } from '../../styles/Common';
 import ReviewRequestForms from './Style';
 import CheckSchedule from '../CheckSchedule';
-import CheckCoupon from '../CheckCoupon';
-import InputCheck from '../InputCheck';
 import ReviewRequestModal from '../ReviewRequestModal';
 import scheduleData from '../../tempData/scheduleData';
-import couponData from '../../tempData/couponData';
-import payMethodData from '../../tempData/payMethodData';
+import useInputText from '../../hooks/useInputText';
+import useInputCheck from '../../hooks/useInputCheck';
 
 function ReviewRequestForm() {
-    // 일정 선택
-    // const [schedule, setSchedule] = useState([]);
+    // 일정 여러개 선택
+    const [checkSchedule, onChangeCheckSchedule] = useInputCheck();
 
     // 다른 일정 더보기
+    const [scheduleLength, setScheduleLength] = useState(4);
+    const [canScheduleMore, setCanScheduleMore] = useState(true);
     const onClickScheduleMore = useCallback(() => {
-
+        setScheduleLength(scheduleData.length);
+        setCanScheduleMore(false);
     }, []);
 
     // 포트폴리오 링크
-    const [link, setLink] = useState('');
-    const onChangeLink = useCallback((e) => {
-        setLink(e.target.value);
-    }, []);
+    const [link, onChangeLink] = useInputText('');
+
+    // 포트폴리오 링크 오류 여부
+    // const [linkError, setLinkError] = useState(true);
 
     // 포트폴리오 링크 오류 모달
-    const [openModal, setOpenModal] = useState(false);
+    const [linkErrorModal, setLinkErrorModal] = useState(false);
     const onCloseModal = useCallback(() => {
-        setOpenModal(false);
+        setLinkErrorModal(false);
     }, []);
 
     // 추가 궁금한 사항
-    const [message, setMessage] = useState('');
-    const onChangeMessage = useCallback((e) => {
-        setMessage(e.target.value);
-    }, []);    
-
-    // 신청하기
-    const onSubmitRequest = useCallback((e) => {
-        e.preventDefault();
-        setOpenModal(true);
-        alert(`
-            일정: none
-            포트폴리오 링크: ${link}
-            추가 궁금한 사항: ${message}
-        `);
-    }, [link, message]);
+    const [message, onChangeMessage] = useInputText('');
 
     // 신청하기 버튼 활성화 여부
     const [canSubmit, setCanSubmit] = useState(false);
     useEffect(() => {
+        if (checkSchedule.size < 1) return;
         if (link.length < 1) return;
         if (message.length < 50) return;
+        
         setCanSubmit(true);
 
         return () => {
             setCanSubmit(false);
         }
-    }, [link, message]);
+    }, [checkSchedule, link, message]);
+
+    // 신청하기
+    const onSubmitRequest = useCallback((e) => {
+        e.preventDefault();
+        // if (linkError) return setLinkErrorModal(true); // 포트폴리오 링크 오류 시 모달 호출
+        setLinkErrorModal(true); // QA를 위한 포트폴리오 링크 오류 모달 호출
+
+        let scheduleId = '';
+        for (let x of checkSchedule) {
+            scheduleId += `${x},`;
+        }
+
+        alert(`체크한 일정 id: ${scheduleId}\n포트폴리오 링크: ${link}\n추가 궁금한 사항: ${message}`);
+    }, [checkSchedule, link, message]);
 
     return (
         <ReviewRequestForms onSubmit={onSubmitRequest}>
@@ -69,35 +72,25 @@ function ReviewRequestForm() {
                     </div>
                 </FieldTitles>
                 <div className='form-schedule-input'>
-                    {scheduleData.map((v, i) => (
-                        <CheckSchedule 
-                            key={v.id} 
-                            name={'review-request-schedule'} 
-                            id={`review-request-schedule${i + 1}`} 
-                            schedule={v.schedule} 
-                        />
-                    ))}
-                    {couponData.map((v, i) => (
-                        <CheckCoupon
-                            key={v.id} 
-                            name={'review-request-coupon'}
-                            id={`review-request-coupon${i + 1}`} 
-                            coupon={v.coupon} 
-                        />
-                    ))}
-                    {payMethodData.map((v, i) => (
-                        <InputCheck 
-                            key={i}
-                            name={`review-request-pay`} 
-                            id={`review-request-pay${i + 1}`} 
-                            label={v} 
-                            onChange={(checked, id) => {console.log(checked, id)}}
-                        />
-                    ))}
+                    {scheduleData.map((v, i) => {
+                        if (i > scheduleLength - 1) return false;
+
+                        return (
+                            <CheckSchedule 
+                                key={v.id} 
+                                name={'schedule'} 
+                                id={v.id}
+                                onChange={onChangeCheckSchedule}
+                                data={v.schedule}
+                            />
+                        )
+                    })}
                 </div>
-                <div className='form-schedule-more'> 
-                    <button type='button' onClick={onClickScheduleMore}>다른 일정 더보기</button>
-                </div>
+                {canScheduleMore &&
+                    <div className='form-schedule-more'> 
+                        <button type='button' onClick={onClickScheduleMore}>다른 일정 더보기</button>
+                    </div>
+                }
             </article>
             <Dividers/>
             <article className='form-link'>
@@ -130,7 +123,7 @@ function ReviewRequestForm() {
                 </div>
             </article>
             <FloatButtons type='submit' disabled={!canSubmit}>신청하기</FloatButtons>
-            {openModal && <ReviewRequestModal title={'포트폴리오 링크 오류'} text={'유효하지 않은 링크입니다. 다시 한번 확인해 주세요.'} onClose={onCloseModal} />}
+            {linkErrorModal && <ReviewRequestModal title={'포트폴리오 링크 오류'} text={'유효하지 않은 링크입니다. 다시 한번 확인해 주세요.'} onClose={onCloseModal} />}
         </ReviewRequestForms>
     );
 }

@@ -1,9 +1,54 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { FieldTitles, Dividers, AmountLists, Buttons } from '../../styles/Common';
 import ReviewPayForms from './Style';
-import BottomSheet from '../BottomSheet/index.jsx';
+import BottomSheet from '../BottomSheet';
+import RadioCoupon from '../RadioCoupon';
+import InputRadio from '../InputRadio';
+import useInputRadio from '../../hooks/useInputRadio';
+import couponData from '../../tempData/couponData';
+import payMethodData from '../../tempData/payMethodData';
+import partnerData from '../../tempData/partnerData';
+import { priceToString } from '../../utils/func';
 
 function ReviewPayForm() {
+    // 쿠폰
+    const [checkCoupon, onClickCoupon] = useInputRadio('', true);
+
+    // 선택된 쿠폰 정보
+    const [checkCouponInfo, setCheckCouponInfo] = useState(null);
+    useEffect(() => {
+        let couponInfo = null;
+
+        if (checkCoupon.length > 0) {
+            for (let x of couponData) {
+                if (checkCoupon === x.id) {
+                    couponInfo = {
+                        name: x.coupon.name,
+                        amount: x.coupon.amount,
+                    };
+                }
+            }
+        }
+
+        setCheckCouponInfo(couponInfo)
+    }, [checkCoupon]);
+
+    // 결제 금액
+    const [onceAmount] = useState(55000);
+    const [totalAmount, setTotalAmount] = useState(onceAmount);
+    useEffect(() => {
+        if (checkCouponInfo) {
+            setTotalAmount(onceAmount - checkCouponInfo.amount);
+        }
+
+        return () => {
+            setTotalAmount(onceAmount)
+        }
+    }, [onceAmount, checkCouponInfo]);
+
+    // 결제 수단
+    const [checkMethod, onClickMethod] = useInputRadio('credit');
+
     // 노쇼 정책 바텀시트
     const [openPolicyNoShow, setOpenPolicyNoShow] = useState(false);
     const onOpenPolicyNoShow = useCallback(() => {
@@ -25,8 +70,8 @@ function ReviewPayForm() {
     // 확인 및 결제하기
     const onSubmitPay = useCallback((e) => {
         e.preventDefault();
-        alert('확인 및 결제');
-    }, []);
+        alert(`선택 쿠폰 ID: ${checkCoupon}\n선택한 결제 수단 ID: ${checkMethod}\n총 결제 금액: ${totalAmount}`);
+    }, [checkCoupon, checkMethod, totalAmount]);
 
     return (
         <ReviewPayForms onSubmit={onSubmitPay}>
@@ -41,9 +86,9 @@ function ReviewPayForm() {
                 </FieldTitles>
                 <div className='form-schedule-view'>
                     <ul>
-                        <li>1/1 (월) 오전 00:00 ~ 00:00</li>
-                        <li>1/2 (화) 오전 00:00 ~ 00:00</li>
-                        <li>1/3 (수) 오전 00:00 ~ 00:00</li>
+                        {partnerData.schedule.map((v, i) => (
+                            <li key={i}>{v}</li>
+                        ))}
                     </ul>
                 </div>
             </article>
@@ -59,16 +104,34 @@ function ReviewPayForm() {
             </article>
             <Dividers type2 />
             <article className='form-coupon'>
+                <FieldTitles mb={0}>
+                    <div className='title'>
+                        <h6>쿠폰</h6>
+                        <h6>적용가능한 쿠폰이 없습니다</h6>
+                    </div>
+                </FieldTitles>
+            </article>
+            <Dividers type2 />            
+            <article className='form-coupon'>
                 <FieldTitles>
                     <div className='title'>
                         <h6>쿠폰</h6>
-                        <p>적용안함</p>
+                        {checkCoupon.length === 0 && <p>적용안함</p>}
                     </div>
                 </FieldTitles>
                 <div className='form-coupon-input'>
-                    CheckCoupon
+                    {couponData.map((v, i) => (
+                        <RadioCoupon
+                            key={v.id} 
+                            name={'coupon'}
+                            id={v.id} 
+                            checkId={checkCoupon}
+                            onClick={onClickCoupon}
+                            data={v.coupon}
+                        />
+                    ))}
                 </div>
-            </article>            
+            </article>
             <Dividers type2 />
             <article className='form-amount'>
                 <FieldTitles mb={8}>
@@ -80,15 +143,17 @@ function ReviewPayForm() {
                     <AmountLists>
                         <li>
                             <p>1회 (40분)</p>
-                            <p>55,000원</p>
+                            <p>{priceToString(onceAmount)}원</p>
                         </li>
-                        {/* <li className='list-coupon'>
-                            <p>[신규] 웰컴 1만원 할인 쿠폰 123123</p>
-                            <p>-10,000원</p>
-                        </li> */}
+                        {checkCouponInfo &&
+                            <li className='list-coupon'>
+                                <p>{checkCouponInfo.name}</p>
+                                <p>-{priceToString(checkCouponInfo.amount)}원</p>
+                            </li>
+                        }
                         <li className='list-total'>
                             <p>총 결제 금액</p>
-                            <p>55,000원</p>
+                            <p>{priceToString(totalAmount)}원</p>
                         </li>
                     </AmountLists>
                 </div>
@@ -101,7 +166,16 @@ function ReviewPayForm() {
                     </div>
                 </FieldTitles>
                 <div className='form-method-input'>
-                    CheckMethod
+                    {payMethodData.map((v, i) => (
+                        <InputRadio 
+                            key={v.id}
+                            name={'method'} 
+                            id={v.id} 
+                            checkId={checkMethod}
+                            onClick={onClickMethod}
+                            label={v.name}
+                        />
+                    ))}
                 </div>
             </article>            
             <Dividers type2 />

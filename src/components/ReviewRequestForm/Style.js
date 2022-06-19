@@ -7,7 +7,7 @@ const { brand500 } = color;
 const ReviewRequestForms = styled.form`
     .form-schedule-input {
         > div {
-            margin-bottom: 16px;
+            padding-bottom: 16px;
         }
     }
 

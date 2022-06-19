@@ -63,6 +63,12 @@ const ReviewConfirmForms = styled.form`
         padding-bottom: 24px;
     }
 
+    .form-schedule-input {
+        > div {
+            padding-bottom: 16px;
+        }
+    }
+
     .form-schedule-more {
         padding: 16px 0;
         text-align: center;
@@ -86,9 +92,13 @@ const ReviewConfirmForms = styled.form`
 
     .form-submit {
         padding-bottom: 32px;
+    }
+
+    .form-submit-help {
+        text-align: center;
 
         > a {
-            display: block;
+            display: inline-block;
             margin-top: 8px;
             padding: 13px 16px;
             color: ${midnight500};

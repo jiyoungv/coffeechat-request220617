@@ -1,32 +1,42 @@
 import { useCallback, useState, useEffect } from 'react';
 import { FieldTitles, Buttons } from '../../styles/Common';
 import ReviewConfirmForms from './Style';
+import RadioSchedule from '../RadioSchedule';
+import partnerData from '../../tempData/partnerData';
+import scheduleData from '../../tempData/scheduleData';
+import useInputRadio from '../../hooks/useInputRadio';
 
 function ReviewConfirmForm() {
-    const client = { // 임시
-        nickname: '닉네임',
-        job: 'UX 디자이너',
-        level: '미들(5-8)',
-        link: 'https://www.coffeechat.kr/',
-        message: '안녕하세요, 현재 디자인 에이전시에서 bx로 근무하고 있습니다. 네이버 프로덕트 디자인 직군으로 커리어 전환과 함께 이직을 고민하고 있습니다. 포트폴리오 제작과 방향성이 막막하여 요청드립니다.',
-    };
+    // 일정 1개 선택
+    const [checkSchedule, onClickSchedule] = useInputRadio('', true);
 
     // 다른 일정 더보기
+    const [scheduleLength, setScheduleLength] = useState(4);
+    const [canScheduleMore, setCanScheduleMore] = useState(true);
     const onClickScheduleMore = useCallback(() => {
-
+        setScheduleLength(scheduleData.length);
+        setCanScheduleMore(false);
     }, []);
 
     // 신청하기 버튼 활성화 여부
     const [canSubmit, setCanSubmit] = useState(false);
     useEffect(() => {
+        if (checkSchedule.length < 1) return;
         setCanSubmit(true);
         
         return () => {
+            setCanSubmit(false);
         }
-    }, []);    
+    }, [checkSchedule]);    
+
+    // 신청하기
+    const onSubmitConfirm = useCallback((e) => {
+        e.preventDefault();
+        alert(`선택한 일정: ${checkSchedule}\n`);
+    }, [checkSchedule]);
 
     return (
-        <ReviewConfirmForms>
+        <ReviewConfirmForms onSubmit={onSubmitConfirm}>
             <article className='form-client'>
                 <FieldTitles mb={8}>
                     <div className='title'>
@@ -34,8 +44,8 @@ function ReviewConfirmForm() {
                     </div>
                 </FieldTitles>
                 <div className='form-client-view'>
-                    <p><b>{client.nickname}</b></p>
-                    <p className='form-client-view-name'>{client.job} | {client.level} </p>
+                    <p><b>{partnerData.nickname}</b></p>
+                    <p className='form-client-view-name'>{partnerData.job} | {partnerData.level} </p>
                 </div>
             </article>
             <article className='form-link'>
@@ -48,7 +58,7 @@ function ReviewConfirmForm() {
                     </div>                    
                 </FieldTitles>
                 <div className='form-link-button'>
-                    <a href={client.link} target='_blank' rel="noreferrer">{client.nickname}님의 포트폴리오 확인하기</a>
+                    <a href={partnerData.link} target='_blank' rel="noreferrer">{partnerData.nickname}님의 포트폴리오 확인하기</a>
                 </div>
             </article>
             <article className='form-message'>
@@ -58,7 +68,7 @@ function ReviewConfirmForm() {
                     </div>
                 </FieldTitles>
                 <div className='form-message-view'>
-                    <p>{client.message}</p>
+                    <p>{partnerData.message}</p>
                 </div>
             </article>
             <article className='form-schedule'>
@@ -69,15 +79,32 @@ function ReviewConfirmForm() {
                     </div>
                 </FieldTitles>
                 <div className='form-schedule-input'>
-                    CheckShedule
+                    {scheduleData.map((v, i) => {
+                        if (i > scheduleLength - 1) return false;
+
+                        return (
+                            <RadioSchedule 
+                                key={v.id} 
+                                name={'schedule'} 
+                                id={v.id}
+                                checkId={checkSchedule}
+                                onClick={onClickSchedule}
+                                data={v.schedule}
+                            />
+                        )
+                    })}
                 </div>
-                <div className='form-schedule-more'> 
-                    <button type='button' onClick={onClickScheduleMore}>다른 일정 더보기</button>
-                </div>
+                {canScheduleMore &&
+                    <div className='form-schedule-more'> 
+                        <button type='button' onClick={onClickScheduleMore}>다른 일정 더보기</button>
+                    </div>
+                }
             </article>
             <div className='form-submit'>
                 <Buttons type='submit' disabled={!canSubmit}>일정 확정하기</Buttons>
-                <a href='https://pf.kakao.com/_xjxcxbxfK/chat' target='_blank' rel='noreferrer'>도움이 필요해요</a>
+                <div className='form-submit-help'>
+                    <a href='https://pf.kakao.com/_xjxcxbxfK/chat' target='_blank' rel='noreferrer'>도움이 필요해요</a>
+                </div>
             </div>
         </ReviewConfirmForms>
     );

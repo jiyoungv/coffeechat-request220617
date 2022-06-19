@@ -4,8 +4,8 @@ import { hidden } from '../../styles/Mixin';
 
 const { brand100, brand500,midnight200  } = color
 
-const InputChecks = styled.div`
-    > input[type='checkbox'] {
+const InputRadios = styled.div`
+    > input[type='radio'] {
         ${hidden}
 
         &:checked + label {
@@ -31,4 +31,4 @@ const InputChecks = styled.div`
     }
 `;
 
-export default InputChecks;
+export default InputRadios;
