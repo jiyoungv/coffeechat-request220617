@@ -5,7 +5,7 @@ import icon_information from '../assets/images/icon_information.svg';
 import icon_arrow_left from '../assets/images/icon_arrow_left.svg';
 import icon_close from '../assets/images/icon_close.svg';
 
-const { midnight200, midnight300, midnight400, midnight500, brand100, brand500, midnight100, slate100, blue100 } = color;
+const { midnight200, midnight300, midnight400, midnight500, brand500, midnight100, slate100, blue100 } = color;
 
 export const Inners = styled.div`
     position: relative;
@@ -216,36 +216,6 @@ export const FloatButtons = styled(Buttons)`
     left: 0;
     right: 0;
     margin: 24px 0;
-`;
-
-export const InputChecks = styled.div`
-    > input[type="checkbox"] {
-        ${hidden}
-    }
-
-    > label {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 16px;
-        border: 1px solid ${midnight200};
-        border-radius: 8px;        
-
-        &.active {
-            border-color: ${brand500};
-            background: ${brand100};
-        }
-    }
-
-    > .check-text {
-        > p {
-            margin-bottom: 4px;
-
-            &:last-child {
-                margin-bottom: 0;
-            }
-        }
-    }
 `;
 
 export const InputTexts = styled.input`

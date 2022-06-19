@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import 'react-app-polyfill/ie11'; // for ie11
+import 'react-app-polyfill/stable'; // for ie11
 import App from './App';
 import ReviewRequest from './pages/ReviewRequest';
 import ReviewPay from './pages/ReviewPay';

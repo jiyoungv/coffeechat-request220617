@@ -1,40 +1,28 @@
-import { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { InputChecks } from '../../styles/Common';
-import IconCheck from '../IconCheck';
+import InputCheck from '../InputCheck';
+import CheckSchedules from './Style';
 
-function CheckSchedule({ name, id, content }) {
-    const [check, setCheck] = useState(false);
-    const onChangeCheck = useCallback((e) => {
-        setCheck(e.target.checked);
-    }, []);
+function CheckSchedule({ name, id, schedule }) {
+    const onChange = (checked, changeId) => {
+        console.log(checked, changeId);
+    };
 
     return (
-        <InputChecks>
-            <input 
-                type="checkbox" 
-                name={name}
-                id={id}
-                checked={check}
-                onChange={onChangeCheck} 
-            />
-            <label htmlFor={id} className={check ? 'active' : ''}>
-                <div className='check-text'>
-                    <p>{content.date}</p>
-                    <p><b>{content.time}</b></p>
+        <CheckSchedules>
+            <InputCheck name={name} id={id} onChange={onChange}>
+                <div className='label-schedule'>
+                    <p>{schedule.date}</p>
+                    <p><b>{schedule.time}</b></p>
                 </div>
-                <figure className='check-icon'>
-                    <IconCheck checked={check} />
-                </figure>
-            </label>
-        </InputChecks>
+            </InputCheck>
+        </CheckSchedules>
     )
 }
 
 CheckSchedule.propTypes = {
-    name: PropTypes.string,
-    id: PropTypes.string,
-    content: PropTypes.object,
+    name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    schedule: PropTypes.object.isRequired,
 };
 
 export default CheckSchedule;

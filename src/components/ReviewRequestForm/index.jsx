@@ -2,8 +2,12 @@ import { useEffect, useState, useCallback } from 'react';
 import { FieldTitles, Dividers, Cautions, FloatButtons, InputTexts, InputTextAreas } from '../../styles/Common';
 import ReviewRequestForms from './Style';
 import CheckSchedule from '../CheckSchedule';
+import CheckCoupon from '../CheckCoupon';
+import InputCheck from '../InputCheck';
 import ReviewRequestModal from '../ReviewRequestModal';
-import dateData from '../../data/dateData';
+import scheduleData from '../../tempData/scheduleData';
+import couponData from '../../tempData/couponData';
+import payMethodData from '../../tempData/payMethodData';
 
 function ReviewRequestForm() {
     // 일정 선택
@@ -65,8 +69,30 @@ function ReviewRequestForm() {
                     </div>
                 </FieldTitles>
                 <div className='form-schedule-input'>
-                    {dateData.map((v, i) => (
-                        <CheckSchedule key={v.id} id={`review-request-schedule${i}`} name={'review-request-schedule'} content={v.content} />
+                    {scheduleData.map((v, i) => (
+                        <CheckSchedule 
+                            key={v.id} 
+                            name={'review-request-schedule'} 
+                            id={`review-request-schedule${i + 1}`} 
+                            schedule={v.schedule} 
+                        />
+                    ))}
+                    {couponData.map((v, i) => (
+                        <CheckCoupon
+                            key={v.id} 
+                            name={'review-request-coupon'}
+                            id={`review-request-coupon${i + 1}`} 
+                            coupon={v.coupon} 
+                        />
+                    ))}
+                    {payMethodData.map((v, i) => (
+                        <InputCheck 
+                            key={i}
+                            name={`review-request-pay`} 
+                            id={`review-request-pay${i + 1}`} 
+                            label={v} 
+                            onChange={(checked, id) => {console.log(checked, id)}}
+                        />
                     ))}
                 </div>
                 <div className='form-schedule-more'> 
