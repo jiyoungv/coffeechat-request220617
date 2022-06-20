@@ -175,14 +175,18 @@ function ReviewPayForm() {
                     <div className='title'>
                         <h6>노쇼 정책</h6>
                         <button type='button' onClick={onOpenPolicyNoShow}>자세히 알아보기</button>
-                        <BottomSheet close={!openPolicyNoShow} onClose={onClosePolicyNoShow} title={'노쇼 정책'} text={'예약 시간으로부터 5분 후 입장 시 커피챗은 자동 취소되며 환불이 불가합니다.'} />
+                        <BottomSheet close={!openPolicyNoShow} onClose={onClosePolicyNoShow} title={'노쇼 정책'}>
+                            <p>예약 시간으로부터 5분 후 입장 시 커피챗은 자동 취소되며 환불이 불가합니다.</p>
+                        </BottomSheet>
                     </div>
                 </FieldTitles>
                 <FieldTitles mb={8}>
                     <div className='title'>
                         <h6>환불 정책</h6>
                         <button type='button' onClick={onOpenPolicyRefund}>자세히 알아보기</button>
-                        <BottomSheet close={!openPolicyRefund} onClose={onClosePolicyRefund} title={'환불정책'} text={'커피챗 예약시간에 파트너가 부득이한 사정으로 참석하지 못한 경우, 신청자님께 100% 환불됩니다.'} />
+                        <BottomSheet close={!openPolicyRefund} onClose={onClosePolicyRefund} title={'환불정책'}>
+                            <p>커피챗 예약시간에 파트너가 부득이한 사정으로 참석하지 못한 경우, 신청자님께 100% 환불됩니다.</p>
+                        </BottomSheet>
                     </div>
                 </FieldTitles>
             </article>

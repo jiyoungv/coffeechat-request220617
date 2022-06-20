@@ -225,7 +225,8 @@ function ChatPayForm() {
                 </FieldTitles>
                 <ul className='form-caution-list'>
                     <li>파트너 수락 후 일정 변경은 불가합니다.</li>
-                    <li>파트너 수락 후 취소 시 환급이 불가합니다.</li>
+                    <li>결제 완료 후 커피챗 매칭이 진행되며, 파트너가 24시간 이내 미수락 시 자동 취소 및 환급 안내를 드립니다.</li>
+                    <li>파트너 수락 후 취소는 불가합니다.</li>
                 </ul>
             </article>
             <article className='form-policy'>
@@ -233,14 +234,19 @@ function ChatPayForm() {
                     <div className='title'>
                         <h6>노쇼 정책</h6>
                         <button type='button' onClick={onOpenPolicyNoShow}>자세히 알아보기</button>
-                        <BottomSheet close={!openPolicyNoShow} onClose={onClosePolicyNoShow} title={'노쇼 정책'} text={'예약 시간으로부터 5분 후 입장 시 커피챗은 자동 취소되며 환불이 불가합니다.'} />
+                        <BottomSheet close={!openPolicyNoShow} onClose={onClosePolicyNoShow} title={'노쇼 정책'}>
+                            <p>예약 시간으로부터 5분 후 입장 시 커피챗은 자동 취소되며 환불이 불가합니다.</p>
+                        </BottomSheet>
                     </div>
                 </FieldTitles>
                 <FieldTitles mb={8}>
                     <div className='title'>
                         <h6>환불 정책</h6>
                         <button type='button' onClick={onOpenPolicyRefund}>자세히 알아보기</button>
-                        <BottomSheet close={!openPolicyRefund} onClose={onClosePolicyRefund} title={'환불정책'} text={'커피챗 예약시간에 파트너가 부득이한 사정으로 참석하지 못한 경우, 신청자님께 100% 환불됩니다.'} />
+                        <BottomSheet close={!openPolicyRefund} onClose={onClosePolicyRefund} title={'환불정책'}>
+                            <p>커피챗 파트너가 24시간 이내 수락하지 않을 시 커피챗은 자동 취소 및 100% 환불됩니다.</p>
+                            <p>커피챗 예약시간에 파트너가 부득이한 이유로 노쇼한 경우, 신청자님께 100% 환불됩니다.</p>
+                        </BottomSheet>
                     </div>
                 </FieldTitles>
             </article>

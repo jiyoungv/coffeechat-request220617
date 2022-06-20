@@ -1,5 +1,5 @@
 {
-  "name": "coffeechat-apply220617",
+  "name": "coffeechat-request220617",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -42,5 +42,5 @@
       "ie 11"
     ]
   },
-  "homepage": "./"
+  "homepage": "https://jiyoungv.github.io/test/coffeechat-request220617/"
 }

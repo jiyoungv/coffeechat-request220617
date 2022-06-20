@@ -39,8 +39,13 @@ const BottomSheets = styled.article`
 
     > .text {
         p {
+            margin-bottom: 16px;
             color: ${midnight500};
             font-size: 16px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
         }
     }
 
