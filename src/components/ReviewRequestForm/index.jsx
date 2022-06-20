@@ -85,7 +85,7 @@ function ReviewRequestForm() {
             </article>
             <Dividers/>
             <article className='form-message'>
-                <FieldTitles className='field-title'>
+                <FieldTitles>
                     <div className='title'>
                         <h6>추가 궁금한 사항</h6>
                         <small>필수</small>
