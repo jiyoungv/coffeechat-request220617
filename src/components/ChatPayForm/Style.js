@@ -54,6 +54,10 @@ const ChatPayForms = styled.form`
             padding-left: 24px;
             padding-right: 24px;
             background: ${bg};
+
+            &, &::placeholder {
+                color: ${midnight600};
+            }
         }
 
         > .button {

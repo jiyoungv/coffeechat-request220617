@@ -5,7 +5,7 @@ import icon_information from '../assets/images/icon_information.svg';
 import icon_arrow_left from '../assets/images/icon_arrow_left.svg';
 import icon_close from '../assets/images/icon_close.svg';
 
-const { midnight200, midnight300, midnight400, midnight500, midnight600, brand500, midnight100, slate100 } = color;
+const { midnight200, midnight300, midnight400, midnight500, brand500, midnight100, slate100 } = color;
 
 export const Inners = styled.div`
     position: relative;
@@ -246,7 +246,7 @@ export const InputTextAreas = styled.textarea`
     height: auto;
     min-height: 162px;
     padding: 16px 20px;
-    border: 0;
+    border: 1px solid transparent;
     border-radius: 8px;
     background: ${slate100};
     word-break: break-all;
@@ -263,11 +263,11 @@ export const InputTextAreas = styled.textarea`
 
     &:focus {
         outline: none;
-        border: 1px solid ${brand500};
+        border-color: ${brand500};
     }
 
-    &:disabled {
-        color: ${midnight600};
+    &:read-only:focus {
+        border-color: transparent
     }
 `;
 

@@ -149,7 +149,7 @@ function ChatPayForm() {
                     </div>
                 </FieldTitles>
                 <div className='form-question-input'>
-                    <InputTextAreas value={question} ref={questionRef} onChange={onChangeQuestion} maxLength='500' disabled={disabledQuestion}></InputTextAreas>
+                    <InputTextAreas value={question} ref={questionRef} onChange={onChangeQuestion} maxLength='500' readOnly={disabledQuestion}></InputTextAreas>
                     {!disabledQuestion &&
                         <div className='button'>
                             <button type='button' onClick={onCancleQuestion}>취소</button>
