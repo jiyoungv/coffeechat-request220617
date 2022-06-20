@@ -9,7 +9,7 @@ import useInputCheck from '../../hooks/useInputCheck';
 
 function ReviewRequestForm() {
     // 일정 여러개 선택
-    const [checkSchedule, onChangeSchedule] = useInputCheck();
+    const [checkSchedules, handlerSchedule] = useInputCheck();
 
     // 포트폴리오 링크
     const [link, onChangeLink] = useInputText('');
@@ -29,7 +29,7 @@ function ReviewRequestForm() {
     // 신청하기 버튼 활성화 여부
     const [canSubmit, setCanSubmit] = useState(false);
     useEffect(() => {
-        if (checkSchedule.size < 1) return;
+        if (checkSchedules.length < 1) return;
         if (link.length < 1) return;
         if (message.length < 50) return;
         
@@ -38,7 +38,7 @@ function ReviewRequestForm() {
         return () => {
             setCanSubmit(false);
         }
-    }, [checkSchedule, link, message]);
+    }, [checkSchedules, link, message]);
 
     // 신청하기
     const onSubmitRequest = useCallback((e) => {
@@ -47,12 +47,12 @@ function ReviewRequestForm() {
         setLinkErrorModal(true); // QA를 위한 포트폴리오 링크 오류 모달 호출
 
         let scheduleId = '';
-        for (let x of checkSchedule) {
+        for (let x of checkSchedules) {
             scheduleId += `${x},`;
         }
 
         console.log(`체크한 일정 id: ${scheduleId}\n포트폴리오 링크: ${link}\n추가 궁금한 사항: ${message}`);
-    }, [checkSchedule, link, message]);
+    }, [checkSchedules, link, message]);
 
     return (
         <ReviewRequestForms onSubmit={onSubmitRequest}>
@@ -63,7 +63,7 @@ function ReviewRequestForm() {
                         <small>선호하는 일정 모두 선택 가능</small>
                     </div>
                 </FieldTitles>
-                <ScheduleList name={'schedule'} handler={onChangeSchedule} data={scheduleData} />
+                <ScheduleList name={'schedule'} handler={handlerSchedule} data={scheduleData} checkIds={checkSchedules} />
             </article>
             <Dividers/>
             <article className='form-link'>

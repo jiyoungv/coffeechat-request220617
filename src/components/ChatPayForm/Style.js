@@ -50,7 +50,7 @@ const ChatPayForms = styled.form`
 
     .form-question-input {
         > textarea {
-            min-height: 0;
+            min-height: 98px;
             padding-left: 24px;
             padding-right: 24px;
             background: ${bg};

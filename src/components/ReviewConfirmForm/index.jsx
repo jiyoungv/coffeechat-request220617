@@ -8,7 +8,7 @@ import useInputRadio from '../../hooks/useInputRadio';
 
 function ReviewConfirmForm() {
     // 일정 1개 선택
-    const [checkSchedule, onClickSchedule] = useInputRadio('', true);
+    const [checkSchedule, handlerSchedule] = useInputRadio('', true);
 
     // 신청하기 버튼 활성화 여부
     const [canSubmit, setCanSubmit] = useState(false);
@@ -70,7 +70,7 @@ function ReviewConfirmForm() {
                         <small>선호하는 일정 1개 선택</small>
                     </div>
                 </FieldTitles>
-                <ScheduleList name={'schedule'} handler={onClickSchedule} data={scheduleData} multiple={false} checkId={checkSchedule} />
+                <ScheduleList name={'schedule'} handler={handlerSchedule} data={scheduleData} multiple={false} checkId={checkSchedule} />
             </article>
             <div className='form-submit'>
                 <Buttons type='submit' disabled={!canSubmit}>일정 확정하기</Buttons>

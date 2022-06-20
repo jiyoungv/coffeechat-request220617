@@ -8,19 +8,19 @@ import useInputRadio from '../../hooks/useInputRadio';
 import couponData from '../../tempData/couponData';
 import payMethodData from '../../tempData/payMethodData';
 import partnerData from '../../tempData/partnerData';
-import { priceToString } from '../../utils/func';
-// import useInputText from '../../hooks/useInputText';
+import { priceToString, autoTextAreaHeight } from '../../utils/func';
+import useInputText from '../../hooks/useInputText';
 
-function ChatPayForm() {
+function ChatPayForm() {    
     // 사전 질문
     const questionRef = useRef();
-    const [question, setQuestion] = useState(partnerData.question);
-    const [questionHeight, setQuestionHeight] = useState();
-    const onChangeQuestion = useCallback((e) => {
-        setQuestion(e.target.value);
-        setQuestionHeight();
-        setQuestionHeight(questionRef.current.scrollHeight);
+    
+    // 사전 질문 높이 자동 맞춤
+    const resizeTextarea = useCallback(() => {
+        autoTextAreaHeight(questionRef.current)
     }, []);
+    
+    const [question, onChangeQuestion, setQuestion] = useInputText(partnerData.question);
 
     // 사전 질문 활성화
     const [disabledQuestion, setDisabledQuestion] = useState(true);
@@ -33,20 +33,11 @@ function ChatPayForm() {
         }
     }, [disabledQuestion]);
 
-    // // 사전 질문 높이 자동 맞춤
-    
-    // useEffect(() => {
-    //     if (question.length) {console.log('111')
-    //         setQuestionHeight(questionRef.current.scrollHeight);
-    //     }
-    // }, [question]);
-
-    // 수정한 사전 질문 저장
+    // 사전 질문 수정본 저장
     const [saveQuestion, setSaveQuestion] = useState(partnerData.question);
 
     // 사전 질문 수정 취소
     const onCancleQuestion = useCallback(() => {
-        // setQuestionHeight();
         setQuestion(saveQuestion);
         setDisabledQuestion(true);
     }, [saveQuestion, setQuestion]);
@@ -55,10 +46,11 @@ function ChatPayForm() {
     const onCompleteQuestion = useCallback(() => {
         setDisabledQuestion(true);
         setSaveQuestion(question);
-    }, [question]);
+        resizeTextarea();
+    }, [question, resizeTextarea]);
 
     // 쿠폰
-    const [checkCoupon, onClickCoupon] = useInputRadio('', true);
+    const [checkCoupon, handlerCoupon] = useInputRadio('', true);
 
     // 선택된 쿠폰 정보
     const [checkCouponInfo, setCheckCouponInfo] = useState(null);
@@ -93,7 +85,7 @@ function ChatPayForm() {
     }, [onceAmount, checkCouponInfo]);
 
     // 결제 수단
-    const [checkMethod, onClickMethod] = useInputRadio('credit');
+    const [checkMethod, handlerMethod] = useInputRadio('credit');
 
     // 노쇼 정책 바텀시트
     const [openPolicyNoShow, setOpenPolicyNoShow] = useState(false);
@@ -157,7 +149,7 @@ function ChatPayForm() {
                     </div>
                 </FieldTitles>
                 <div className='form-question-input'>
-                    <InputTextAreas value={question} ref={questionRef} autoHeight={questionHeight} onChange={onChangeQuestion} rows='3' maxLength='500' disabled={disabledQuestion}></InputTextAreas>
+                    <InputTextAreas value={question} ref={questionRef} onChange={onChangeQuestion} maxLength='500' disabled={disabledQuestion}></InputTextAreas>
                     {!disabledQuestion &&
                         <div className='button'>
                             <button type='button' onClick={onCancleQuestion}>취소</button>
@@ -184,7 +176,7 @@ function ChatPayForm() {
                     </div>
                 </FieldTitles>
                 <div className='form-coupon-input'>
-                    {couponData.map((v, i) => (<RadioCoupon key={v.id} name={'coupon'} id={v.id} checkId={checkCoupon} onClick={onClickCoupon} data={v.coupon}/>))}
+                    {couponData.map((v, i) => (<RadioCoupon key={v.id} name={'coupon'} id={v.id} checkId={checkCoupon} handler={handlerCoupon} data={v.coupon}/>))}
                 </div>
             </article>
             <Dividers type2 />
@@ -221,7 +213,7 @@ function ChatPayForm() {
                     </div>
                 </FieldTitles>
                 <div className='form-method-input'>
-                    {payMethodData.map((v, i) => (<InputRadio key={v.id} name={'method'} id={v.id} checkId={checkMethod} onClick={onClickMethod} label={v.name}/>))}
+                    {payMethodData.map((v, i) => (<InputRadio key={v.id} name={'method'} id={v.id} checkId={checkMethod} handler={handlerMethod} label={v.name}/>))}
                 </div>
             </article>            
             <Dividers type2 />

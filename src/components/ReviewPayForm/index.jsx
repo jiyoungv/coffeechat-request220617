@@ -12,7 +12,7 @@ import { priceToString } from '../../utils/func';
 
 function ReviewPayForm() {
     // 쿠폰
-    const [checkCoupon, onClickCoupon] = useInputRadio('', true);
+    const [checkCoupon, handlerCoupon] = useInputRadio('', true);
 
     // 선택된 쿠폰 정보
     const [checkCouponInfo, setCheckCouponInfo] = useState(null);
@@ -47,7 +47,7 @@ function ReviewPayForm() {
     }, [onceAmount, checkCouponInfo]);
 
     // 결제 수단
-    const [checkMethod, onClickMethod] = useInputRadio('credit');
+    const [checkMethod, handlerMethod] = useInputRadio('credit');
 
     // 노쇼 정책 바텀시트
     const [openPolicyNoShow, setOpenPolicyNoShow] = useState(false);
@@ -118,7 +118,7 @@ function ReviewPayForm() {
                     </div>
                 </FieldTitles>
                 <div className='form-coupon-input'>
-                    {couponData.map((v, i) => (<RadioCoupon key={v.id} name={'coupon'} id={v.id} checkId={checkCoupon} onClick={onClickCoupon} data={v.coupon}/>))}
+                    {couponData.map((v, i) => (<RadioCoupon key={v.id} name={'coupon'} id={v.id} checkId={checkCoupon} handler={handlerCoupon} data={v.coupon}/>))}
                 </div>
             </article>
             <Dividers type2 />
@@ -155,7 +155,7 @@ function ReviewPayForm() {
                     </div>
                 </FieldTitles>
                 <div className='form-method-input'>
-                    {payMethodData.map((v, i) => (<InputRadio key={v.id} name={'method'} id={v.id} checkId={checkMethod} onClick={onClickMethod} label={v.name}/>))}
+                    {payMethodData.map((v, i) => (<InputRadio key={v.id} name={'method'} id={v.id} checkId={checkMethod} handler={handlerMethod} label={v.name}/>))}
                 </div>
             </article>            
             <Dividers type2 />

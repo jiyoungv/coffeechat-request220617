@@ -1,24 +1,31 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import IconCheck from '../IconCheck';
 import InputChecks from './Style';
 
-function InputCheck({ name, id, label, checked, children, onChange }) {
-    const [checkState, setCheckState] = useState(checked ? checked : false);
+function InputCheck({ name, id, checkIds, handler, label, children }) {
+    const [checkState, setCheckState] = useState(false);
     const onChangeCheck = useCallback((e) => {
-        setCheckState(e.target.checked);
-        onChange && onChange(e.target.checked, id);
-    }, [id, onChange]);
+        handler(e.target.id);
+    }, [handler]);
+
+    useEffect(() => {
+        if (checkIds.length > 0) {
+            for (let checkId of checkIds) {
+                if (id === checkId) {
+                    setCheckState(true);
+                }
+            }
+        }
+
+        return () => {
+            setCheckState(false);
+        }
+    }, [id, checkIds]);
 
     return (
         <InputChecks>
-            <input 
-                type='checkbox'
-                name={name} 
-                id={id} 
-                checked={checkState} 
-                onChange={onChangeCheck} 
-            />
+            <input type='checkbox' name={name} id={id} checked={checkState} onChange={onChangeCheck} />
             <label htmlFor={id}>
                 {label && <p>{label}</p>}
                 {children}
@@ -33,10 +40,10 @@ function InputCheck({ name, id, label, checked, children, onChange }) {
 InputCheck.propTypes = {
     name: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
+    checkIds: PropTypes.array.isRequired,
+    handler: PropTypes.func.isRequired,
     label: PropTypes.string,
-    checked: PropTypes.bool,
     children: PropTypes.node,
-    onChange: PropTypes.func,
 };
 
 export default InputCheck;

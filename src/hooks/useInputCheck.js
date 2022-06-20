@@ -1,21 +1,21 @@
 import { useState, useCallback } from 'react';
+import { setToArray } from '../utils/func';
 
-const useInputCheck = (initialState = new Set()) => {
+const useInputCheck = (initialState = []) => {
     const [state, setState] = useState(initialState);
-    const handler = useCallback((checked, change) => {
+    const handler = useCallback((changeId) => {
         let newState = new Set(state);
     
-        if (checked) {
-            newState.add(change);
+        if (newState.has(changeId)) {
+            newState.delete(changeId);
         } else {
-            newState.delete(change);
+            newState.add(changeId);
         }
-    
-        setState(newState);
+
+        setState(setToArray(newState));
     }, [state]);
 
     return [state, handler, setState];
-    // state - new Set([id1, id2, ...])
 }
 
 export default useInputCheck;

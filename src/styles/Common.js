@@ -242,7 +242,7 @@ export const InputTexts = styled.input`
 
 export const InputTextAreas = styled.textarea`
     width: 100%;
-    height: ${props => props.autoHeight ? props.autoHeight + 'px' : 'auto'};
+    height: auto;
     min-height: 162px;
     padding: 16px 20px;
     border: 0;
