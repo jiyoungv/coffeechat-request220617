@@ -2,8 +2,6 @@ export const fontFamily = {
     system: '"Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
     appleSystem: '-apple-system, BlinkMacSystemFont',
     notoSans: 'Noto Sans KR',
-    gilroyR: 'Gilroy Regular',
-    gilroyB: 'Gilroy ExtraBold',
 };
 
 export const color = {

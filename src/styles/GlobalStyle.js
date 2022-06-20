@@ -1,8 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
-import { color } from './Variable';
+import { color, fontFamily } from './Variable';
 
 const { midnight700 } = color;
+const { system, appleSystem, notoSans } = fontFamily;
 
 const GlobalStyle = createGlobalStyle`
     ${reset}
@@ -13,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
 
     body, input, textarea {
 		font-size: 14px;
-		font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+		font-family: ${appleSystem}, ${notoSans}, ${system};
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;		
 		font-weight: 400;
