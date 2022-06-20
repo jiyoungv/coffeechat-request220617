@@ -38,7 +38,7 @@ const Modals = styled.article`
         }
     }
 
-    > .button {
+    > .button, > .button .button-strange1 {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -62,6 +62,24 @@ const Modals = styled.article`
             &.button-full {
                 width: 100%;
                 flex-basis: 100%;
+            }
+        }
+
+        > .button-strange1 {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56px;
+        }
+
+        > .button-strange2 {
+            position: absolute;
+            left: 0%;
+            bottom: 13px;
+            width: 100%;
+            
+            > a, > button {
+                color: ${midnight500};
+                font-weight: 700;
             }
         }
     }

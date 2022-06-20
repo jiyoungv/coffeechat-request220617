@@ -27,3 +27,4 @@ export const color = {
 };
 
 export const maxWidth = '414px';
+export const gutter = '24px';

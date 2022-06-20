@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import { FieldTitles, Dividers, Cautions, FloatButtons, InputTexts, InputTextAreas } from '../../styles/Common';
+import { FieldTitles, Dividers, Cautions, FloatButtons, Buttons, InputTexts, InputTextAreas } from '../../styles/Common';
 import ReviewRequestForms from './Style';
 import ReviewRequestModal from '../ReviewRequestModal';
 import ScheduleList from '../ScheduleList';
@@ -85,17 +85,22 @@ function ReviewRequestForm() {
             </article>
             <Dividers/>
             <article className='form-message'>
-                <FieldTitles>
+                <FieldTitles className='field-title'>
                     <div className='title'>
                         <h6>추가 궁금한 사항</h6>
-                        <small>필수 (최대 500자)</small>
+                        <small>필수</small>
+                    </div>
+                    <div className='text'>
+                        <p>공백포함 최소 50자 (최대 500자 작성 가능)</p>
                     </div>
                 </FieldTitles>
                 <div className='form-message-input'>
                     <InputTextAreas value={message} onChange={onChangeMessage} maxLength='500' placeholder={'가장 궁금한 내용을 포함하여 파트너에게 미리 전하고 싶은 메시지를 자유롭게 작성해 보세요. (최소 50자)'}></InputTextAreas>
                 </div>
             </article>
-            <FloatButtons type='submit' disabled={!canSubmit}>신청하기</FloatButtons>
+            <FloatButtons>
+                <Buttons type='submit' disabled={!canSubmit}>신청하기</Buttons>
+            </FloatButtons>
             {linkErrorModal && <ReviewRequestModal title={'포트폴리오 링크 오류'} text={'유효하지 않은 링크입니다. 다시 한번 확인해 주세요.'} onClose={onCloseModal} />}
         </ReviewRequestForms>
     );

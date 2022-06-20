@@ -50,7 +50,7 @@ function ReviewConfirmForm() {
                     </div>                    
                 </FieldTitles>
                 <div className='form-link-button'>
-                    <a href={partnerData.link} target='_blank' rel="noreferrer">{partnerData.nickname}님의 포트폴리오 확인하기</a>
+                    <a href={partnerData.link} target='_blank' rel="noreferrer">&#123;닉네임&#125; 님의 포트폴리오 확인하기</a>
                 </div>
             </article>
             <article className='form-message'>
@@ -75,7 +75,7 @@ function ReviewConfirmForm() {
             <div className='form-submit'>
                 <Buttons type='submit' disabled={!canSubmit}>일정 확정하기</Buttons>
                 <div className='form-submit-help'>
-                    <a href='https://pf.kakao.com/_xjxcxbxfK/chat' target='_blank' rel='noreferrer'>도움이 필요해요</a>
+                    <a href='https://pf.kakao.com/_xjxcxbxfK/chat' target='_blank' rel='noreferrer'>도움이 필요해요 (고객센터 바로가기)</a>
                 </div>
             </div>
         </ReviewConfirmForms>

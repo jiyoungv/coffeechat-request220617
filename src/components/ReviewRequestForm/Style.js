@@ -11,6 +11,12 @@ const ReviewRequestForms = styled.form`
 
     .form-message {
         padding-bottom: 16px;
+
+        > .field-title {
+            .text {
+                opacity: 0.5;
+            }
+        }
     }
 
     .form-message-input {

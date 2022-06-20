@@ -1,6 +1,6 @@
 import { PageInfos, Dividers } from '../styles/Common';
 import PageLayout from '../components/PageLayout';
-import PageHeader from '../components/PageHeader';
+import ChatPayHeader from '../components/ChatPayHeader';
 import ChatPayForm from '../components/ChatPayForm';
 import img_rocket from '../assets/images/img_rocket.svg';
 import partnerData from '../tempData/partnerData';
@@ -8,7 +8,7 @@ import partnerData from '../tempData/partnerData';
 function ChatPay() {
     return (
         <PageLayout>
-            <PageHeader title={'결제하기'} />
+            <ChatPayHeader title={'결제하기'} />
             <PageInfos>
                 <div className='info-with-image'>
                     <figure>

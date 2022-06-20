@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { clearFix, hidden } from './Mixin';
-import { color, maxWidth } from './Variable';
+import { color, maxWidth, gutter } from './Variable';
 import icon_information from '../assets/images/icon_information.svg';
 import icon_arrow_left from '../assets/images/icon_arrow_left.svg';
 import icon_close from '../assets/images/icon_close.svg';
@@ -10,7 +10,7 @@ const { midnight200, midnight300, midnight400, midnight500, brand500, midnight10
 export const Inners = styled.div`
     position: relative;
     height: 100%;
-    margin: 0 24px;
+    margin: 0 ${gutter};
     ${clearFix}
 `;
 
@@ -39,9 +39,9 @@ export const Headers = styled.section`
     left: 0;
     right: 0;
     z-index: 10;
-    width: calc(100% + 48px);
+    width: calc(100% + ${gutter} * 2);
     height: 48px;
-    margin-left: -24px;
+    margin-left: -${gutter};
     background: white;
 
     > .left-button {
@@ -216,12 +216,35 @@ export const Buttons = styled.button`
     }
 `;
 
-export const FloatButtons = styled(Buttons)`
+export const FloatButtons = styled.div`
     position: sticky;
-    bottom: 24px;
+    bottom: 0;
     left: 0;
     right: 0;
-    margin: 24px 0;
+    width: 100%;
+    padding-bottom: 42px;
+
+    ::before {
+        content: '';
+        display: block;
+        width: calc(100% + ${gutter} * 2);
+        height: 16px;
+        margin-bottom: 8px;
+        margin-left: -${gutter};
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%);
+    }
+
+    ::after {
+        content: '';
+        position: absolute;
+        left: -${gutter};
+        bottom: 0;
+        z-index: -1;
+        display: block;
+        width: calc(100% + ${gutter} * 2);
+        height: calc(100% - 16px);
+        background: white;
+    }
 `;
 
 export const InputTexts = styled.input`
